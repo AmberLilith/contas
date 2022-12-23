@@ -2,7 +2,9 @@ package br.com.amber.contas.validations;
 
 
 
+import br.com.amber.contas.exceptions.ClientNotFoundException;
 import br.com.amber.contas.exceptions.CpfAlreadyRegisteredException;
+import br.com.amber.contas.exceptions.InvalidStatusException;
 import br.com.amber.contas.exceptions.RegisterNotFoundByIdException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,6 +39,18 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(RegisterNotFoundByIdException.class)
     public String handleRegisterNotFoundByIdException(RegisterNotFoundByIdException ex) {
         return "{\"id\":\"" + ex.getMessage() + "\"}";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ClientNotFoundException.class)
+    public String handleClientNotFoundException(ClientNotFoundException ex) {
+        return "{\"id\":\"" + ex.getMessage() + "\"}";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(InvalidStatusException.class)
+    public String handleInvalidStatusException(InvalidStatusException ex) {
+        return "{\"status\":\"" + ex.getMessage() + "\"}";
     }
 
    /* @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
