@@ -2,23 +2,17 @@ package br.com.amber.contas.services;
 
 import br.com.amber.contas.Status;
 import br.com.amber.contas.dtos.ClientDto;
-import br.com.amber.contas.dtos.ClientPatchDto;
 import br.com.amber.contas.exceptions.ClientNotFoundException;
 import br.com.amber.contas.exceptions.CpfAlreadyRegisteredException;
-import br.com.amber.contas.exceptions.InvalidStatusException;
-import br.com.amber.contas.exceptions.RegisterNotFoundByIdException;
 import br.com.amber.contas.models.Client;
 import br.com.amber.contas.repositories.ClientRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -53,9 +47,9 @@ public class ClientService {
 
     }
 
-    public Page<ClientDto> findByStatus(Pageable pageable){
-        Page<Client> pages = repository.findByStatus(Status.ATIVO.name(), pageable);
-        return ClientDto.converter(pages);
+    public Page<ClientDto> findByStatus(Pageable pageable, String status){
+        Page<Client> pages = repository.findByStatus(status, pageable);
+        return ClientDto.convertesToPage(pages);
     }
 
     public ClientDto update(ClientDto clientDto, Long id) {

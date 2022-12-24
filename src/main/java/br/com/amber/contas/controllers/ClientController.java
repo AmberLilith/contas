@@ -1,6 +1,7 @@
 package br.com.amber.contas.controllers;
 
 import br.com.amber.contas.dtos.ClientDto;
+import br.com.amber.contas.dtos.StatusDto;
 import br.com.amber.contas.models.Client;
 import br.com.amber.contas.services.ClientService;
 import jakarta.validation.Valid;
@@ -38,9 +39,9 @@ public class ClientController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @GetMapping("/ativos")
-    public ResponseEntity<Page<ClientDto>> findByStatus(Pageable pageable) {
-        return ResponseEntity.ok(service.findByStatus(pageable));
+    @PostMapping("/status")
+    public ResponseEntity<Page<ClientDto>> findByStatus(Pageable pageable, @RequestBody @Valid StatusDto status) {
+        return ResponseEntity.ok(service.findByStatus(pageable, status.getStatus()));
     }
 
     @PatchMapping("/{id}")

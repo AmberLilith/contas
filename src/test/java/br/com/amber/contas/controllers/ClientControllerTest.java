@@ -2,6 +2,7 @@ package br.com.amber.contas.controllers;
 
 import br.com.amber.contas.Status;
 import br.com.amber.contas.dtos.ClientDto;
+import br.com.amber.contas.dtos.StatusDto;
 import br.com.amber.contas.exceptions.ClientNotFoundException;
 import br.com.amber.contas.exceptions.CpfAlreadyRegisteredException;
 import br.com.amber.contas.helpers.ClientMockFactory;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -210,18 +212,41 @@ public  class ClientControllerTest {
 
 
     @Test
-    @DisplayName("Ao buscar clientes ativos, retornar status code 200 e uma Page de clientDtos")
-    public void when_getActiveClients_thenReturnStatusCode200AndPageOfClientDto() throws Exception {
+    @DisplayName("Ao buscar clientes por status, retornar status code 200 e uma Page de clientDtos")
+    public void when_findClientByStatus_thenReturnStatusCode200AndPageOfClientDto() throws Exception {
         Page<ClientDto> page = ClientMockFactory.createPageOfThreeClientDtos();
-        Mockito.when(service.findByStatus(Mockito.any())).thenReturn(page);
-                this.mockMvc
+        StatusDto statusDto = new StatusDto("ATIVO");
+        Mockito.when(service.findByStatus(Mockito.any(Pageable.class), Mockito.anyString())).thenReturn(page);
+
+        this.mockMvc
                 .perform(
-                        get("/v1/clientes/ativos")
+                        post("/v1/clientes/status?size=1")
                                 .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(statusDto))
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].name").value("Maria da Silva"));
+
+
+    }
+
+    @Test
+    @DisplayName("Ao buscar clientes por status, se status for inválido,  returnar status code 400")
+    public void when_findClientByStatus_and_statusIsInvalid_then_returnStatusCode400() throws Exception {
+        Page<ClientDto> page = ClientMockFactory.createPageOfThreeClientDtos();
+        StatusDto statusDto = new StatusDto("INVALIDO");
+        Mockito.when(service.findByStatus(Mockito.any(Pageable.class), Mockito.anyString())).thenReturn(page);
+
+        this.mockMvc
+                .perform(
+                        post("/v1/clientes/status?size=1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(statusDto))
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value("Precisa ser um status válido: [ATIVO, INATIVO]"));
 
 
     }

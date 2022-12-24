@@ -38,7 +38,7 @@ public class ClientDto {
 
     }
 
-    public static Page<ClientDto> converter(Page<Client> clients){
+    public static Page<ClientDto> convertesToPage(Page<Client> clients){
         return clients.map(ClientDto::new);
     }
 }

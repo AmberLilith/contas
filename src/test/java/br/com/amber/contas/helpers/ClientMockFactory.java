@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientMockFactory {
 
@@ -54,6 +55,20 @@ public class ClientMockFactory {
         PageRequest pagination = PageRequest.of(0, 3);
         List<ClientDto> clientDtos = createListOfThreeClientDtos();
         return  new PageImpl<>(clientDtos, pagination, clientDtos.size());
+    }
+
+    public static Page<Client> createPageOfThreeClients(){
+        PageRequest pagination = PageRequest.of(0, 3);
+        List<Client> clients = createListOfThreeClients();
+        return  new PageImpl<>(clients, pagination, clients.size());
+    }
+
+    public static Optional<ClientDto> createOptionalOfClientDto(){
+        return Optional.of(createClientDtoJoaoDaSilva());
+    }
+
+    public static Optional<Client> createOptionalOfClient(){
+        return Optional.of(createClientJoaoDaSilva());
     }
 
 }
