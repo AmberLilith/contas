@@ -22,7 +22,7 @@ public class AccountService {
     public AccountDto save(Account account){
         Client clientExistent = clientRepository.findById(account.getClientId()).orElseThrow(() -> new ClientNotFoundException(String.format("Cliente com %d não encontrado!", account.getClientId())));
         AccountDto accountDto = new AccountDto();
-        BeanUtils.copyProperties(account, accountDto);
+        BeanUtils.copyProperties(accountRepository.save(account), accountDto);
         return accountDto;
     }
 }

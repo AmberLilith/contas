@@ -1,6 +1,7 @@
 package br.com.amber.contas.controllers;
 
 import br.com.amber.contas.dtos.AccountDto;
+import br.com.amber.contas.dtos.ClientDto;
 import br.com.amber.contas.models.Account;
 import br.com.amber.contas.services.AccountService;
 import jakarta.validation.Valid;
@@ -24,6 +25,8 @@ public class AccountController {
     private ResponseEntity<AccountDto> save(@RequestBody @Valid AccountDto accountDto){
         Account account = new Account();
         BeanUtils.copyProperties(accountDto, account);
-        return new ResponseEntity<>(service.save(account), HttpStatus.CREATED);
+        AccountDto accountDtoResponse =  service.save(account);
+        System.out.println(accountDtoResponse.toString());
+        return new ResponseEntity<>(accountDtoResponse, HttpStatus.CREATED);
     }
 }
