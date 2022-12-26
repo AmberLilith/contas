@@ -1,19 +1,20 @@
 package br.com.amber.contas.validations.annotations;
 
+import br.com.amber.contas.enums.AccountType;
 import br.com.amber.contas.enums.Status;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class StatusValidator implements ConstraintValidator<IsValidStatus, String> {
+public class AccountTypeValidator implements ConstraintValidator<IsValidAccountType, String> {
     @Override
-    public void initialize(IsValidStatus constraintAnnotation) {
+    public void initialize(IsValidAccountType constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        for(Status status : Status.values()){
-            if(status.name().equals(value)){
+        for(AccountType type : AccountType.values()){
+            if(type.name().equals(value)){
                 return true;
             }
         }

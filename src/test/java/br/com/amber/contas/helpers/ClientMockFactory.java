@@ -1,6 +1,6 @@
 package br.com.amber.contas.helpers;
 
-import br.com.amber.contas.Status;
+import br.com.amber.contas.enums.Status;
 import br.com.amber.contas.dtos.ClientDto;
 import br.com.amber.contas.models.Client;
 import org.springframework.data.domain.Page;

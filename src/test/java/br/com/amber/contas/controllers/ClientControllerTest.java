@@ -1,6 +1,6 @@
 package br.com.amber.contas.controllers;
 
-import br.com.amber.contas.Status;
+import br.com.amber.contas.enums.Status;
 import br.com.amber.contas.dtos.ClientDto;
 import br.com.amber.contas.dtos.StatusDto;
 import br.com.amber.contas.exceptions.ClientNotFoundException;
@@ -9,6 +9,7 @@ import br.com.amber.contas.helpers.ClientMockFactory;
 import br.com.amber.contas.models.Client;
 import br.com.amber.contas.services.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -38,7 +39,7 @@ public  class ClientControllerTest {
     ClientDto CLIENT_DTO = ClientMockFactory.createClientDtoJoaoDaSilva();
 
     @Test
-    @DisplayName("Ao cadastrar um novo cliente, retornar status code 201 e dados do cliente cadastrado!")
+    @DisplayName("Ao cadastrar um novo cliente com sucesso, retornar status code 201 e dados do cliente cadastrado!")
     public void when_registerNewClient_then_returnStatusCodeCreated() throws Exception {
         this.mockMvc
                 .perform(
@@ -48,6 +49,7 @@ public  class ClientControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name").value(CLIENT_DTO.getName()))
                 .andExpect(content().json("{\"name\":\"João da Silva\",\"cpf\":\"78945612301\",\"status\":\"ATIVO\"}"));
     }
 

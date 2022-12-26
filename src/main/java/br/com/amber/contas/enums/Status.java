@@ -1,4 +1,4 @@
-package br.com.amber.contas;
+package br.com.amber.contas.enums;
 
 public enum Status {
 

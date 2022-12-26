@@ -1,7 +1,5 @@
 package br.com.amber.contas.models;
 
-import br.com.amber.contas.Status;
-import br.com.amber.contas.utils.Endereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

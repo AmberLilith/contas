@@ -1,16 +1,10 @@
 package br.com.amber.contas.dtos;
 
-import br.com.amber.contas.Status;
 import br.com.amber.contas.models.Client;
-import br.com.amber.contas.utils.Endereco;
 import br.com.amber.contas.validations.annotations.IsValidStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 
 @Data

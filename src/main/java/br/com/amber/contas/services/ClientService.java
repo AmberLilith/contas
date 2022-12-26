@@ -1,6 +1,6 @@
 package br.com.amber.contas.services;
 
-import br.com.amber.contas.Status;
+import br.com.amber.contas.enums.Status;
 import br.com.amber.contas.dtos.ClientDto;
 import br.com.amber.contas.exceptions.ClientNotFoundException;
 import br.com.amber.contas.exceptions.CpfAlreadyRegisteredException;
@@ -32,6 +32,7 @@ public class ClientService {
             throw new CpfAlreadyRegisteredException("CPF já cadastrado!");
         }
     }
+
 
     public ClientDto findById(Long id) throws ClientNotFoundException{
         ClientDto clientDto = new ClientDto();
