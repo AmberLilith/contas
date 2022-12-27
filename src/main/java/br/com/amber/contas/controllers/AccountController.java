@@ -9,10 +9,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/contas")
@@ -26,7 +26,12 @@ public class AccountController {
         Account account = new Account();
         BeanUtils.copyProperties(accountDto, account);
         AccountDto accountDtoResponse =  service.save(account);
-        System.out.println(accountDtoResponse.toString());
         return new ResponseEntity<>(accountDtoResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<List<AccountDto>> findByClientId(@PathVariable Long id){
+        List<AccountDto> accountDtoList = service.findByClientId(id);
+        return new ResponseEntity<>(accountDtoList, HttpStatus.OK);
     }
 }

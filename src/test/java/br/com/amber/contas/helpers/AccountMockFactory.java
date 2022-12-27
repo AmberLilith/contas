@@ -6,6 +6,8 @@ import br.com.amber.contas.enums.Status;
 import br.com.amber.contas.models.Account;
 import br.com.amber.contas.services.AccountService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class AccountMockFactory {
@@ -28,4 +30,14 @@ public class AccountMockFactory {
                 AccountType.CORRENTE.name()
         );
     }
+
+    public static List<AccountDto> createAListOfThreeAccountDtos(){
+        List<AccountDto> accountDtoList = new ArrayList<>();
+        accountDtoList.add(new AccountDto(Status.ATIVO.name(),0.0, 1L, AccountType.CORRENTE.name()));
+        accountDtoList.add(new AccountDto(Status.ATIVO.name(),0.0, 1L, AccountType.POUPANCA.name()));
+        accountDtoList.add(new AccountDto(Status.ATIVO.name(),0.0, 1L, AccountType.SALARIO.name()));
+        return accountDtoList;
+
+    }
+
 }

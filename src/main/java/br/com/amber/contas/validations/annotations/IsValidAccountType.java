@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface IsValidAccountType {
 
-    String message() default "Precisa ser um tipo de conta válido: [CORRENTE, POUPANCA, SALARIO]" + 1;
+    String message() default "Precisa ser um tipo de conta válido: [CORRENTE, POUPANCA, SALARIO]";
 
     Class<?>[] groups() default {};
 

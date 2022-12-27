@@ -3,6 +3,8 @@ package br.com.amber.contas.dtos;
 import br.com.amber.contas.validations.annotations.IsValidAccountType;
 import br.com.amber.contas.validations.annotations.IsValidStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,12 +19,12 @@ public class AccountDto {
     @IsValidStatus
     private String status;
 
-    //@NotBlank(message = "não pode ficar em branco!")
+    @NotNull(message = "não pode ficar em branco nem ser nulo!")
     private Double balance;
 
-    //@NotBlank(message = "não pode ficar em branco!")
+    @NotNull(message = "não pode ficar em branco nem ser nulo!")
     private Long clientId;
 
-    //@IsValidAccountType
+    @IsValidAccountType
     private String type;
 }
